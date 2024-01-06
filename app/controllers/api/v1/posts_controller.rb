@@ -2,7 +2,10 @@ class Api::V1::PostsController < ApplicationController
     # GET ALL POSTS FROM DB
     def index
         @post = Post.all
-        render json: @post, status: 200
+        render json: {
+            data: @post,
+            username: user_id_to_username(@post)
+    }
     end
 
     # POST REQUEST TO DB FOR POST CREATION
@@ -39,5 +42,17 @@ class Api::V1::PostsController < ApplicationController
     private
     def post_params
         params.require(:post).permit(:user_id, :title)
+    end
+    
+    def user_id_to_username(posts)
+        # array stores usernames
+        arr = []
+        count = 0
+        for post in posts do
+            username = post.user.username
+            arr[count] = username
+            count = count + 1
+        end
+        return arr
     end
 end
