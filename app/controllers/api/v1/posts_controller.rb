@@ -7,12 +7,16 @@ class Api::V1::PostsController < ApplicationController
 
     # POST REQUEST TO DB FOR POST CREATION
     def create
-        @post = Post.New(post_params)
+        @post = Post.new(post_params)
         if @post.save
-            render json: @post, status: 200
+            render json:{
+                data: @post,
+                status: "success"
+            }
         else
             render json: {
-                error: "Error: Unable to create post."
+                error: @post.errors.full_messages[0],
+                status: "failure"
             }
         end
     end
@@ -34,6 +38,6 @@ class Api::V1::PostsController < ApplicationController
 
     private
     def post_params
-        params.require(:post).permit(:user, :title)
+        params.require(:post).permit(:user_id, :title)
     end
 end
