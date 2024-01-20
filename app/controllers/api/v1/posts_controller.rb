@@ -8,6 +8,23 @@ class Api::V1::PostsController < ApplicationController
     }
     end
 
+    # Shows subposts whose post_id = current post_id
+    def show
+        @post = Post.find(params[:id])
+        if @post
+            render json: {
+                username_post: get_username(@post),
+                post: @post,
+                subposts: @post.subposts,
+                username_subpost: user_id_to_username(@post.subposts)
+            }
+        else
+            render json: {
+                error: "Post not found."
+            }
+        end
+    end
+
     # POST REQUEST TO DB FOR POST CREATION
     def create
         @post = Post.new(post_params)
@@ -26,9 +43,10 @@ class Api::V1::PostsController < ApplicationController
 
     # DELETE REQUEST TO SERVER TO DELETE POST
     def destroy
-        @post = Post.find_by(id: params[:id])
+        @post = Post.find(params[:id])
         if @post
             @post.destroy
+            @post.subposts.destroy
             render json: {
                 message: "Post successfully deleted."
             }
@@ -54,5 +72,9 @@ class Api::V1::PostsController < ApplicationController
             count = count + 1
         end
         return arr
+    end
+
+    def get_username(post)
+        return post.user.username
     end
 end

@@ -5,6 +5,18 @@ class Api::V1::UsersController < ApplicationController
     render json: @user, status: 200
   end
 
+  #shows posts that belongs to logged-in user
+  def show
+    @user = User.find(params[:id])
+    if @user
+      render json: @user.posts
+    else
+      render json: {
+        error: "No user found"
+      }
+    end
+  end
+
   # POST REQUEST TO DB
   def create
     @user = User.new(user_params)
