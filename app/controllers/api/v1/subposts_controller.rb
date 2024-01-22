@@ -32,6 +32,22 @@ class Api::V1::SubpostsController < ApplicationController
             }
         end
     end
+
+    def update
+        @subpost = Subpost.find(params[:id])
+        if @subpost
+            @subpost.update(subposts_params)
+            render json: {
+                data: @subpost,
+                status: "success"
+            }
+        else
+            render json: {
+                error: @subpost.errors.full_messages[0],
+                status: "failure"
+            }
+        end
+    end
         
     private
     def subposts_params

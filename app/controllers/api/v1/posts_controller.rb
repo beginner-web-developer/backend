@@ -57,6 +57,22 @@ class Api::V1::PostsController < ApplicationController
         end
     end
 
+    def update
+        @post = Post.find(params[:id])
+        if @post
+            @post.update(post_params)
+            render json: {
+                data: @post,
+                status: "success"
+            }
+        else
+            render json: {
+                error: @post.errors.full_messages[0],
+                status: "failure"
+            }
+        end
+    end
+
     private
     def post_params
         params.require(:post).permit(:user_id, :title)
