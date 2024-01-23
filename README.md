@@ -3,22 +3,11 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+Ruby version: 3.2.2
 
-* Ruby version
+Database creation and migration: 
+run command rake db:create
+rake db:migrate
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Setting up the backend server: 
+rails server -p 3001
