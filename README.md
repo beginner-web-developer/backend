@@ -5,9 +5,11 @@ application up and running.
 
 Ruby version: 3.2.2
 
-Database creation and migration: 
-run command rake db:create
-rake db:migrate
-
-Setting up the backend server: 
-rails server -p 3001
+To run the application:
+1. Clone this repository.
+2. Run the database creation and migrations.
+   rake db:create
+   rake db:migrate
+   rake db:seed
+4. Set up the backend server on port 3001.
+   rails server -p 3001
