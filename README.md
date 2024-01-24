@@ -18,3 +18,4 @@ To run the application:
    ```
    rails server -p 3001
    ```
+5. Copy the URL of the backend API into the url.tsx file of "sample-react-app" repository
